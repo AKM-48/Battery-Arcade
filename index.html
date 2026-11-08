@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; font-src 'self'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+  <meta name="description" content="An interactive battery chemistry demonstration featuring a flashlight, a Patrol, and a game controller.">
+  <title>Battery Arcade | Interactive Chemistry Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-pixel" aria-hidden="true"><span></span><span></span><span></span></span>
+        <div class="brand-copy"><span class="brand-main">BATTERY<span class="brand-accent">ARCADE</span></span><span class="brand-sub">ELECTROCHEMISTRY / MINI LAB</span></div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="header-button" id="presentButton" title="Enter presentation fullscreen">⛶ <span>PRESENT</span></button>
+      </div>
+    </header>
+
+    <section class="intro" aria-labelledby="mainHeading">
+      <div><p class="eyebrow">INTERACTIVE LEARNING // 3 EXPERIMENTS</p><h1 id="mainHeading">THREE DEVICES.<br><span>ONE BIG IDEA.</span></h1></div>
+      <p class="intro-copy">Power a torch. Start a Patrol. Charge a controller. See how different batteries turn chemical reactions into useful electricity.</p>
+    </section>
+
+    <div class="experiment-heading"><span>CHOOSE YOUR EXPERIMENT</span><span class="experiment-heading-line"></span><span>01 / 02 / 03</span></div>
+    <nav class="mode-tabs" role="tablist" aria-label="Battery demonstration scenes">
+      <button class="mode-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="experimentPanel" id="tab-torch" data-scene="torch"><span class="tab-num">01</span><span class="tab-title">FLASHLIGHT</span><span class="tab-type">PRIMARY · ALKALINE</span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+      <button class="mode-tab" type="button" role="tab" aria-selected="false" aria-controls="experimentPanel" id="tab-car" data-scene="car"><span class="tab-num">02</span><span class="tab-title">PATROL 4×4</span><span class="tab-type">SECONDARY · LEAD-ACID</span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+      <button class="mode-tab" type="button" role="tab" aria-selected="false" aria-controls="experimentPanel" id="tab-controller" data-scene="controller"><span class="tab-num">03</span><span class="tab-title">CONTROLLER</span><span class="tab-type">SECONDARY · LI-ION</span><span class="tab-arrow" aria-hidden="true">↗</span></button>
+    </nav>
+
+    <section id="experimentPanel" class="experiment-grid" role="tabpanel" aria-labelledby="tab-torch">
+      <article class="scene-card">
+        <div class="card-topline"><div class="mini-kicker"><span class="pixel-bullet"></span> LIVE DEMONSTRATION</div><div id="sceneLabel" class="topline-label">01 · ALKALINE CELL</div></div>
+        <div class="scene-frame"><canvas id="sceneCanvas" width="320" height="190" role="img" aria-label="Pixel art battery-powered torch, animated by the controls below">Pixel art simulation.</canvas><div class="pixel-corner top-left"></div><div class="pixel-corner top-right"></div><div class="pixel-corner bottom-left"></div><div class="pixel-corner bottom-right"></div><div class="scene-caption" id="sceneCaption">SWITCH ON TO COMPLETE THE CIRCUIT</div></div>
+        <div class="scene-footer"><div><span class="footer-label">ENERGY PATH</span><div id="energyPath" class="footer-flow">CHEMICAL → ELECTRICAL → LIGHT</div></div><div class="scene-footer-deco" aria-hidden="true">✧ ✧ ✧</div></div>
+      </article>
+
+      <aside class="console-card" aria-label="Simulation controls and chemistry status">
+        <div class="console-header"><div><span class="eyebrow">BATTERY MONITOR</span><h2 id="monitorTitle">ALKALINE / AA</h2></div><span id="statusBadge" class="status-badge status-idle">READY</span></div>
+        <div class="meter-area"><div class="meter-header"><span class="meter-label">SIMULATED CHARGE</span><output id="batteryPercent" class="meter-number" aria-live="off">76%</output></div><div class="meter-track" id="batteryTrack" role="progressbar" aria-label="Illustrative battery charge" aria-valuemin="0" aria-valuemax="100" aria-valuenow="76"><span class="meter-fill" id="batteryFill"></span><span class="meter-notches" aria-hidden="true"></span></div><p id="stateExplanation" class="state-explanation" aria-live="polite">The flashlight is off. The circuit is open.</p></div>
+        <div class="readout-grid"><div class="readout"><span>BATTERY CLASS</span><strong id="classValue">PRIMARY</strong></div><div class="readout"><span>PROCESS</span><strong id="processValue">IDLE</strong></div></div>
+        <div class="console-divider"></div><div class="controls-heading"><span>CONTROLS</span><span class="small-dots" aria-hidden="true">● ● ●</span></div>
+        <div id="controls" class="controls" aria-label="Experiment controls"></div>
+        <div class="micro-message"><span aria-hidden="true">ⓘ</span> <span id="microNote">Fast-forward the demo if you don't want to wait.</span></div>
+      </aside>
+    </section>
+
+    <section class="science-panel" aria-labelledby="scienceHeading">
+      <div class="science-header"><div><span class="eyebrow">WHAT IS HAPPENING INSIDE?</span><h2 id="scienceHeading">CHEMISTRY, NOT MAGIC.</h2></div><span class="science-spark" aria-hidden="true">✳</span></div>
+      <div class="science-cards"><div class="science-card science-card-oxidation"><div class="science-label"><span class="science-square"></span> OXIDATION / ANODE</div><p id="oxidationText">Zinc releases electrons when the battery supplies electricity.</p></div><div class="science-card science-card-reduction"><div class="science-label"><span class="science-square"></span> REDUCTION / CATHODE</div><p id="reductionText">Manganese dioxide accepts electrons at the positive electrode.</p></div><div class="science-card science-card-takeaway"><div class="science-label"><span class="science-square"></span> THE TAKEAWAY</div><p id="takeawayText">A primary cell is designed to be replaced rather than recharged.</p></div></div>
+      <details class="equation-details" id="equationDetails"><summary><span>＋</span> VIEW REACTIONS &amp; EXPLANATION <span class="summary-right">OPTIONAL DEEP DIVE</span></summary><div class="equation-content"><p id="equationContext" class="equation-context"></p><div class="equation-row"><span>OXIDATION</span><code id="equationOx"></code></div><div class="equation-row"><span>REDUCTION</span><code id="equationRed"></code></div><p class="equation-footnote" id="equationFootnote"></p></div></details>
+    </section>
+
+    <div class="disclaimer"><span class="disclaimer-icon">!</span><p><strong>Classroom simulation:</strong> Charge percentages, battery-drain speeds and the effect of revving are deliberately exaggerated for a quick demonstration. They are not real vehicle measurements or a model of exact battery capacity.</p></div>
+
+    <footer class="site-footer"><div><span class="footer-tagline">BATTERY ARCADE · ELECTROCHEMISTRY</span><span>Three experiments. See the reactions behind everyday electricity.</span></div><details class="sources"><summary>SCIENCE SOURCES <span aria-hidden="true">＋</span></summary><p>Further reading:</p><ul><li><a href="https://openstax.org/books/chemistry-2e/pages/17-5-batteries-and-fuel-cells" target="_blank" rel="noopener noreferrer">OpenStax — Batteries and Fuel Cells</a></li><li><a href="https://edu.rsc.org/experiments/rechargeable-cells-the-lead-acid-accumulator/391.article" target="_blank" rel="noopener noreferrer">Royal Society of Chemistry — Lead-Acid Accumulator</a></li><li><a href="https://www.chem.uci.edu/~unicorn/243/handouts/batteries.html" target="_blank" rel="noopener noreferrer">University of California, Irvine — Battery Reactions</a></li><li><a href="https://www.denso-am.eu/news/alternator-troubleshooting" target="_blank" rel="noopener noreferrer">DENSO — Alternator and Charging System</a></li></ul></details></footer>
+  </main>
+</body>
+</html>
